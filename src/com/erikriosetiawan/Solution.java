@@ -1,6 +1,6 @@
 package com.erikriosetiawan;
 
-public class Main {
+public class Solution {
     public static void main(String[] args) {
         
     }
