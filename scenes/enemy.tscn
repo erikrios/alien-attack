@@ -33,8 +33,3 @@ shape = SubResource("CircleShape2D_5y2va")
 position = Vector2(13, 36)
 rotation = 1.5708
 shape = SubResource("CircleShape2D_5y2va")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(40, 0)
-
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
