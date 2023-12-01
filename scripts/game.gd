@@ -4,6 +4,10 @@ var lives := 3
 var score := 0
 
 @onready var player: Player = $Player
+@onready var hud: HUD = $UI/HUD
+
+func _ready() -> void:
+	hud.set_score_label(score)
 
 func _on_death_zone_area_entered(area: Area2D) -> void:
 	(area as Enemy).die()
@@ -22,4 +26,4 @@ func _on_enemy_spawner_enemy_spawned(enemy_instance: Enemy) -> void:
 
 func _on_enemy_died() -> void:
 	score += 100
-	print("Score: " + str(score))
+	hud.set_score_label(score)
