@@ -1,11 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://ceihvspba25bq"]
+[gd_scene load_steps=7 format=3 uid="uid://ceihvspba25bq"]
 
 [ext_resource type="FontFile" uid="uid://dud0b7pscawy3" path="res://assets/font/Kenney Blocks.ttf" id="1_1gwjo"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_5mgcr"]
+[ext_resource type="Texture2D" uid="uid://ceo1vurpjrr5c" path="res://assets/textures/orb.png" id="3_bwudk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_p53ry"]
 font = ExtResource("1_1gwjo")
 font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_gbkxm"]
+font = ExtResource("1_1gwjo")
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_elv7i"]
+font = ExtResource("1_1gwjo")
+font_size = 52
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -16,11 +25,40 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5mgcr")
 
-[node name="Score" type="Label" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 376.0
-offset_bottom = 91.0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "SCORE: 9999"
 label_settings = SubResource("LabelSettings_p53ry")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LifeTextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(78, 30)
+layout_mode = 2
+texture = ExtResource("3_bwudk")
+expand_mode = 1
+
+[node name="X" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "X"
+label_settings = SubResource("LabelSettings_gbkxm")
+
+[node name="LivesLeft" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "3"
+label_settings = SubResource("LabelSettings_elv7i")
