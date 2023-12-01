@@ -1,5 +1,7 @@
 extends Path2D
 
+class_name PathEnemy
+
 @onready var path_follow_2d: PathFollow2D = $PathFollow2D
 @onready var enemy: Area2D = $PathFollow2D/Enemy
 
