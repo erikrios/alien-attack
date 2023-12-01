@@ -5,21 +5,29 @@ var score := 0
 
 @onready var player: Player = $Player
 @onready var hud: HUD = $UI/HUD
+@onready var ui: CanvasLayer = $UI
+
+var game_over_screen_scene: PackedScene = preload("res://scenes/game_over_screen.tscn")
 
 func _ready() -> void:
 	hud.set_score_label(score)
 	hud.set_lives(lives)
 
 func _on_death_zone_area_entered(area: Area2D) -> void:
-	(area as Enemy).die()
-
+	(area as Enemy).queue_free()
+	
 func _on_player_took_damage() -> void:
 	lives -= 1
 	hud.set_lives(lives)
 	if lives == 0:
 		player.die()
-		print("Game over")
-
+		
+		await get_tree().create_timer(1.5).timeout
+		
+		var game_over_screen_instance: GameOverScreen = game_over_screen_scene.instantiate()
+		ui.add_child(game_over_screen_instance)
+		game_over_screen_instance.set_score_label(score)
+		
 func _on_enemy_spawner_enemy_spawned(enemy_instance: Enemy) -> void:
 	enemy_instance.connect("died", _on_enemy_died)
 	add_child(enemy_instance)
