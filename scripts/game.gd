@@ -6,6 +6,8 @@ var score := 0
 @onready var player: Player = $Player
 @onready var hud: HUD = $UI/HUD
 @onready var ui: CanvasLayer = $UI
+@onready var enemy_hit_sound: AudioStreamPlayer = $EnemyHitSound
+@onready var player_took_damage_sound: AudioStreamPlayer = $PlayerTookDamageSound
 
 var game_over_screen_scene: PackedScene = preload("res://scenes/game_over_screen.tscn")
 
@@ -17,6 +19,7 @@ func _on_death_zone_area_entered(area: Area2D) -> void:
 	(area as Enemy).queue_free()
 	
 func _on_player_took_damage() -> void:
+	player_took_damage_sound.play()
 	lives -= 1
 	hud.set_lives(lives)
 	if lives == 0:
@@ -35,3 +38,4 @@ func _on_enemy_spawner_enemy_spawned(enemy_instance: Enemy) -> void:
 func _on_enemy_died() -> void:
 	score += 100
 	hud.set_score_label(score)
+	enemy_hit_sound.play()
