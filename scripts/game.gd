@@ -1,6 +1,7 @@
 extends Node2D
 
 var lives := 3
+var score := 0
 
 @onready var player: Player = $Player
 
@@ -13,4 +14,12 @@ func _on_player_took_damage() -> void:
 		player.die()
 		print("Game over")
 	else:
-		print(lives)
+		print("Lives: " + str(lives))
+
+func _on_enemy_spawner_enemy_spawned(enemy_instance: Enemy) -> void:
+	enemy_instance.connect("died", _on_enemy_died)
+	add_child(enemy_instance)
+
+func _on_enemy_died() -> void:
+	score += 100
+	print("Score: " + str(score))
